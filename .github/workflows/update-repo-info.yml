@@ -1,0 +1,23 @@
+name: Update Repo Info in README
+
+on:
+  push:
+    tags:
+      - '*'  # Trigger on any new tag push
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Update Repo Info in README
+        uses: chroming/update-readme-repo-info@v1.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          mode: pr  # 'pr' or 'direct'
+          base_branch: master  # or 'main' or your custom branch name
